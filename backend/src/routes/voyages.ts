@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
             voyage_number, commercial_name, voyage_type, vessel_id,
             port_of_departure, port_of_arrival, speed_planned,
             ai_scenario_id, charter_party_ref, waypoints,
-            operator_id
+            operator_id, etd_planned, eta_planned
         } = req.body;
 
         await pool.query('BEGIN');
@@ -55,15 +55,17 @@ router.post('/', async (req, res) => {
             INSERT INTO voyages (
                 voyage_number, commercial_name, voyage_type, vessel_id,
                 port_of_departure, port_of_arrival, speed_planned, 
-                ai_scenario_id, charter_party_ref, operator_id, status
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'planned')
+                ai_scenario_id, charter_party_ref, operator_id, status,
+                etd_planned, eta_planned
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'planned', $11, $12)
             RETURNING *
         `;
 
         const { rows } = await pool.query(insertVoyage, [
             voyage_number, commercial_name, voyage_type, vessel_id,
             port_of_departure, port_of_arrival, speed_planned,
-            ai_scenario_id || null, charter_party_ref, operator_id || null
+            ai_scenario_id || null, charter_party_ref, operator_id || null,
+            etd_planned || null, eta_planned || null
         ]);
 
         const newVoyage = rows[0];
