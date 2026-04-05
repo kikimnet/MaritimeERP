@@ -7,15 +7,13 @@ export const ExternalServices = {
         // Simulate API delay
         await new Promise(r => setTimeout(r, 500));
         
-        // Return realistic mock weather risks
+        // Return realistic mock weather risks - Always return at least one warning for UI demonstration purposes
         const risks = [];
-        if (Math.random() > 0.5) {
-            risks.push({
-                type: 'weather',
-                severity: 'medium',
-                description: 'Vents contraires (force 6-7) prévus dans le Golfe.'
-            });
-        }
+        risks.push({
+            type: 'weather',
+            severity: 'medium',
+            description: 'Vents contraires (force 6-7) prévus dans le Golfe.'
+        });
         
         // 10% chance of ice conditions depending on the season (we just mock it randomly)
         if (Math.random() > 0.9) {

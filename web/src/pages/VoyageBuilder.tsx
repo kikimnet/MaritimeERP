@@ -97,6 +97,12 @@ const VoyageBuilder: React.FC = () => {
     const renderAICard = (key: string, s: any) => {
         const isSelected = selectedScenario === key;
         
+        // Calculate ETA based on ETD and duration
+        const etd = form.etd_planned ? new Date(form.etd_planned) : new Date();
+        const eta = new Date(etd);
+        eta.setDate(eta.getDate() + Math.ceil(s.kpis.estimated_duration_days));
+        const formatOptions: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'short' };
+        
         return (
             <div 
                 key={key} 
@@ -128,19 +134,22 @@ const VoyageBuilder: React.FC = () => {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
                     <div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Dates / Durée</div>
+                        <div style={{ fontSize: '15px', fontWeight: 'bold', color: 'var(--text-primary)' }}>
+                            {etd.toLocaleDateString('fr-FR', formatOptions)} ➔ {eta.toLocaleDateString('fr-FR', formatOptions)}
+                        </div>
+                        <div style={{ fontSize: '12px', color: 'var(--accent)' }}>{s.kpis.estimated_duration_days} jours</div>
+                    </div>
+                    <div>
                         <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Coût estimé</div>
                         <div style={{ fontSize: '18px', fontWeight: 'bold', color: 'var(--text-primary)' }}>${s.kpis.estimated_cost_cad.toLocaleString()} CAD</div>
                     </div>
                     <div>
-                        <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Durée</div>
-                        <div style={{ fontSize: '18px', fontWeight: 'bold', color: 'var(--text-primary)' }}>{s.kpis.estimated_duration_days} jours</div>
-                    </div>
-                    <div>
-                        <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Vitesse</div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Vitesse Moy.</div>
                         <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-primary)' }}>{s.kpis.cruising_speed_knots} nds</div>
                     </div>
                     <div>
-                        <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Consommation</div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Consommation (Soute)</div>
                         <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-primary)' }}>{s.kpis.total_fuel_consumption_mt} tm</div>
                     </div>
                 </div>
