@@ -1,5 +1,8 @@
 version: '3.8'
 
+volumes:
+  pgdata_erp:
+
 services:
   db:
     image: postgres:15-alpine
@@ -9,7 +12,7 @@ services:
       POSTGRES_PASSWORD: erp_password
       POSTGRES_DB: maritime_erp
     ports:
-      - "5433:5432" # On map 5433 au cas où le 5432 est pris par l'autre projet
+      - "5433:5432"
     volumes:
       - pgdata_erp:/var/lib/postgresql/data
       - ./schema.sql:/docker-entrypoint-initdb.d/init.sql
@@ -20,5 +23,26 @@ services:
     ports:
       - "6380:6379"
 
-volumes:
-  pgdata_erp:
+  api:
+    build: ./backend
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=postgresql://erp_admin:erp_password@db:5432/maritime_erp
+      - JWT_SECRET=super_secret_jwt_key_123
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+
+  web:
+    build:
+      context: ./web
+      args:
+        - VITE_API_URL=http://187.124.92.41:4000/api/v1
+    restart: always
+    ports:
+      - "3002:80"
+    depends_on:
+      - api
