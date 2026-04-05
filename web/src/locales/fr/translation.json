@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "dashboard": "Tableau de Bord",
+    "contracts": "Contrats",
+    "fleet": "Flotte",
+    "crew": "Équipage",
+    "switchLanguage": "EN"
+  },
+  "dashboard": {
+    "title": "Tableau de Bord",
+    "activeContracts": "Contrats Actifs",
+    "vesselsAtSea": "Navires en Mer",
+    "leaveAlerts": "Alertes Relèves"
+  },
+  "contracts": {
+    "title": "Gestion des Contrats",
+    "newContract": "Nouveau Contrat",
+    "formTitle": "Saisie d'un Embarquement",
+    "crewMember": "Membre d'équipage (ID ou Nom)",
+    "crewMemberPlaceholder": "Ex. Dubois, Jean",
+    "vessel": "Navire (Flotte Desgagnés)",
+    "selectVessel": "Sélectionner un navire...",
+    "startDate": "Date de Début (Sign-on)",
+    "endDate": "Date de Fin Prévue (Sign-off)",
+    "portSignOn": "Port d'embarquement (Recherche)",
+    "portSignOnPlaceholder": "Saisissez 4 caractères...",
+    "portSignOff": "Port de débarquement prévu",
+    "portSignOffPlaceholder": "Optionnel pour l'instant...",
+    "submit": "Valider l'embarquement",
+    "table": {
+      "sailor": "Marin",
+      "vessel": "Navire",
+      "dates": "Dates",
+      "portOn": "Port Embarquement",
+      "status": "Statut",
+      "active": "Actif"
+    }
+  },
+  "fleet": {
+    "title": "Flotte Navires",
+    "search": "Rechercher un navire...",
+    "filters": "Filtres",
+    "addVessel": "Ajouter Navire",
+    "flag": "Pavillon",
+    "dest": "Dest:",
+    "eta": "ETA:",
+    "details": "Détails",
+    "positioning": "Positionnement",
+    "status": {
+      "transit": "IN TRANSIT",
+      "moored": "MOORED",
+      "anchor": "AT ANCHOR"
+    },
+    "form": {
+      "title": "Nouveau Navire",
+      "name": "Nom du Navire",
+      "imo": "Numéro IMO",
+      "type": "Type de Navire",
+      "flag": "Pavillon",
+      "dwt": "Tonnage DWT",
+      "yearBuilt": "Année de Construction",
+      "submit": "Enregistrer le Navire",
+      "cancel": "Annuler"
+    },
+    "vesselDetail": {
+      "title": "Fiche Navire",
+      "back": "Retour à la flotte",
+      "specifications": "Spécifications Techniques",
+      "currentStatus": "Statut Actuel",
+      "crewOnboard": "Équipage à bord",
+      "certificates": "Certificats"
+    }
+  },
+  "crew": {
+    "title": "Gestion Équipage",
+    "search": "Chercher par nom, rang...",
+    "add": "+ Ajouter Marin",
+    "table": {
+      "member": "Membre d'équipage",
+      "rankNat": "Rang & Nationalité",
+      "status": "Statut",
+      "assignment": "Affectation",
+      "action": "Action",
+      "leave": "Relève"
+    },
+    "newCertification": "Nouvelle certification"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "contracts": "Contracts",
+    "fleet": "Fleet",
+    "crew": "Crew",
+    "switchLanguage": "FR"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "activeContracts": "Active Contracts",
+    "vesselsAtSea": "Vessels at Sea",
+    "leaveAlerts": "Leave Alerts"
+  },
+  "contracts": {
+    "title": "Contract Management",
+    "newContract": "New Contract",
+    "formTitle": "Sign-on Entry",
+    "crewMember": "Crew Member (ID or Name)",
+    "crewMemberPlaceholder": "e.g. Smith, John",
+    "vessel": "Vessel (Desgagnés Fleet)",
+    "selectVessel": "Select a vessel...",
+    "startDate": "Start Date (Sign-on)",
+    "endDate": "Expected End Date (Sign-off)",
+    "portSignOn": "Sign-on Port (Search)",
+    "portSignOnPlaceholder": "Enter 4 characters...",
+    "portSignOff": "Expected Sign-off Port",
+    "portSignOffPlaceholder": "Optional for now...",
+    "submit": "Validate Sign-on",
+    "table": {
+      "sailor": "Sailor",
+      "vessel": "Vessel",
+      "dates": "Dates",
+      "portOn": "Sign-on Port",
+      "status": "Status",
+      "active": "Active"
+    }
+  },
+  "fleet": {
+    "title": "Vessel Fleet",
+    "search": "Search a vessel...",
+    "filters": "Filters",
+    "addVessel": "Add Vessel",
+    "flag": "Flag",
+    "dest": "Dest:",
+    "eta": "ETA:",
+    "details": "Details",
+    "positioning": "Positioning",
+    "status": {
+      "transit": "IN TRANSIT",
+      "moored": "MOORED",
+      "anchor": "AT ANCHOR"
+    },
+    "form": {
+      "title": "New Vessel",
+      "name": "Vessel Name",
+      "imo": "IMO Number",
+      "type": "Vessel Type",
+      "flag": "Flag",
+      "dwt": "DWT Tonnage",
+      "yearBuilt": "Year Built",
+      "submit": "Save Vessel",
+      "cancel": "Cancel"
+    },
+    "vesselDetail": {
+      "title": "Vessel Profile",
+      "back": "Back to fleet",
+      "specifications": "Technical Specifications",
+      "currentStatus": "Current Status",
+      "crewOnboard": "Crew Onboard",
+      "certificates": "Certificates"
+    }
+  },
+  "crew": {
+    "title": "Crew Management",
+    "search": "Search by name, rank...",
+    "add": "+ Add Sailor",
+    "table": {
+      "member": "Crew Member",
+      "rankNat": "Rank & Nationality",
+      "status": "Status",
+      "assignment": "Assignment",
+      "action": "Action",
+      "leave": "Next Leave"
+    },
+    "newCertification": "New Certification"
+  }
+}

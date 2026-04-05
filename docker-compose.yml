@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: erp_admin
+      POSTGRES_PASSWORD: erp_password
+      POSTGRES_DB: maritime_erp
+    ports:
+      - "5433:5432" # On map 5433 au cas où le 5432 est pris par l'autre projet
+    volumes:
+      - pgdata_erp:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6380:6379"
+
+volumes:
+  pgdata_erp:
