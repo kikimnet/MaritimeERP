@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { Map as MapIcon, ArrowLeft, Anchor, Navigation, Calendar, Clock, AlertTriangle } from 'lucide-react';
-import Map, { Source, Layer, Marker } from 'react-map-gl';
+import Map, { Source, Layer, Marker } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import api from '../api';
 
