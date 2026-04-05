@@ -38,7 +38,7 @@ async function scrapeDesgagnes() {
       const searchName = vessel.name.trim();
       
       // Look for a heading that contains the vessel name
-      let shipHeader = null;
+      let shipHeader: any = null;
       $('h5').each((i, el) => {
         if ($(el).text().includes(searchName)) {
           shipHeader = $(el);
