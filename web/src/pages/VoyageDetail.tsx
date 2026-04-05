@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { Map, ArrowLeft, Anchor, Navigation, Calendar, Clock, AlertTriangle } from 'lucide-react';
+import { Map as MapIcon, ArrowLeft, Anchor, Navigation, Calendar, Clock, AlertTriangle } from 'lucide-react';
+import Map, { Source, Layer, Marker } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import api from '../api';
+
+// A mock coordinates dictionary for the MVP. In a real scenario, this comes from the backend.
+const PORT_COORDS: Record<string, [number, number]> = {
+    'CATRQ': [-73.74, 45.39],   // Trois-Rivières (approx)
+    'CASEP': [-66.38, 50.21],   // Sept-Îles
+    'CAMTR': [-73.56, 45.50],   // Montreal
+    'CAQUE': [-71.20, 46.81]    // Quebec
+};
 
 const VoyageDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [voyage, setVoyage] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+
+    const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || ''; // Needs to be configured in .env
 
     useEffect(() => {
         const fetchDetail = async () => {
@@ -24,6 +36,18 @@ const VoyageDetail: React.FC = () => {
 
     if (loading) return <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-secondary)' }}>Chargement du voyage...</div>;
     if (!voyage) return <div style={{ padding: '24px', textAlign: 'center' }}>Voyage introuvable.</div>;
+
+    const startCoord = PORT_COORDS[voyage.port_of_departure] || [-71.2, 46.8];
+    const endCoord = PORT_COORDS[voyage.port_of_arrival] || [-66.38, 50.21];
+
+    const routeGeoJSON: any = {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+            type: 'LineString',
+            coordinates: [startCoord, endCoord]
+        }
+    };
 
     return (
         <div style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -89,11 +113,35 @@ const VoyageDetail: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Right Panel: Mapbox placeholder */}
-                <div style={{ flex: 1, borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#1e293b', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-color)' }}>
-                    <Map size={64} style={{ color: 'rgba(255,255,255,0.1)', marginBottom: '16px' }} />
-                    <h3 style={{ margin: 0, color: 'var(--text-secondary)' }}>Carte Interactive en direct</h3>
-                    <p style={{ color: 'var(--text-secondary)', opacity: 0.6, fontSize: '14px', maxWidth: '300px', textAlign: 'center' }}>L'intégration Mapbox GL JS affichera la route planifiée (bleu tireté) et la trace AIS temps réel (vert) ici.</p>
+                {/* Right Panel: Mapbox */}
+                <div style={{ flex: 1, borderRadius: '20px', overflow: 'hidden', position: 'relative', border: '1px solid var(--border-color)', minHeight: '400px' }}>
+                    <Map
+                        initialViewState={{
+                            longitude: (startCoord[0] + endCoord[0]) / 2,
+                            latitude: (startCoord[1] + endCoord[1]) / 2,
+                            zoom: 5
+                        }}
+                        mapStyle="mapbox://styles/mapbox/dark-v11"
+                        mapboxAccessToken={MAPBOX_TOKEN}
+                    >
+                        {/* Route Line */}
+                        <Source id="route" type="geojson" data={routeGeoJSON}>
+                            <Layer 
+                                id="routeLayer" 
+                                type="line" 
+                                paint={{
+                                    'line-color': '#e11d48',
+                                    'line-width': 3,
+                                    'line-dasharray': [2, 2]
+                                }} 
+                            />
+                        </Source>
+
+                        {/* Departure Pin */}
+                        <Marker longitude={startCoord[0]} latitude={startCoord[1]} color="var(--accent)" />
+                        {/* Arrival Pin */}
+                        <Marker longitude={endCoord[0]} latitude={endCoord[1]} color="var(--success)" />
+                    </Map>
                     
                     {voyage.ai_scenario_id && (
                         <div style={{ position: 'absolute', bottom: '24px', left: '24px', right: '24px', background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(10px)', padding: '16px', borderRadius: '12px', border: '1px solid var(--accent)' }}>
