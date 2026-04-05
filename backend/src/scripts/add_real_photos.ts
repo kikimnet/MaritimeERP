@@ -28,6 +28,9 @@ async function addRealPhotos() {
     console.log('--- Updating real photos ---');
     await client.query('BEGIN');
     
+    // Ensure column exists
+    await client.query('ALTER TABLE vessels ADD COLUMN IF NOT EXISTS image_url TEXT');
+    
     let updatedCounter = 0;
     
     for (const [name, url] of Object.entries(photoMap)) {
