@@ -1,0 +1,23 @@
+name: Deploy to Hostinger VPS
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy MaritimeERP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executer le redéploiement via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
+          script: |
+            # On navigue dans le dossier de l'application
+            cd /opt/maritimeerp
+            # On lance le redéploiement tel que vous le faîtes manuellement
+            bash redeploy.sh
